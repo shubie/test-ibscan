@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="IBScanCommon">
+    <CLASSES>
+      <root url="jar://C:/Program Files/Integrated Biometrics/IBScanUltimateSDK_x64/Lib/IBScanCommon.jar!/" />
+      <root url="jar://C:/Program Files/Integrated Biometrics/IBScanUltimateSDK_x64/Lib/IBScanUltimate.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
