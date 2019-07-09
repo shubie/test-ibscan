@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -25,7 +27,13 @@ import com.integratedbiometrics.ibscanultimate.IBScanDevice.ImageType;
 import com.integratedbiometrics.ibscanultimate.IBScanDevice.PlatenState;
 import com.integratedbiometrics.ibscanultimate.IBScanDevice.SegmentPosition;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 
 public class Main extends Application  implements IBScanListener, IBScanDeviceListener{
 
@@ -52,6 +60,8 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
     }
 
     TextField deviceIndexField = new TextField();
+
+    ImageView imagePreview = new ImageView();
 
 
     // Set IBScanDevice.
@@ -81,8 +91,45 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
         return (deviceIndex);
     }
 
+    // Get image type.
+    protected IBScanDevice.ImageType getImageType()
+    {
+        IBScanDevice.ImageType imageType =
+                (IBScanDevice.ImageType) ImageType.FLAT_FOUR_FINGERS;
+
+        return (imageType);
+    }
+    protected IBScanDevice.ImageResolution getImageResolution()
+    {
+        // Currently only 500ppi is supported.
+        IBScanDevice.ImageResolution imageResolution = IBScanDevice.ImageResolution.RESOLUTION_500;
+
+        return (imageResolution);
+    }
+
+    // Get capture options.
+    protected int getCaptureOptions()
+    {
+        int options = 0;
+
+//        if (this.chckbxAutoContrastOptimization.isSelected())
+//        {
+//            options |= IBScanDevice.OPTION_AUTO_CONTRAST;
+//        }
+//        if (this.chckbxAutoCaptureFingerprints.isSelected())
+//        {
+//            options |= IBScanDevice.OPTION_AUTO_CAPTURE;
+//        }
+//        if (this.chckbxTriggerInvalidFingerCount.isSelected())
+//        {
+//            options |= IBScanDevice.OPTION_IGNORE_FINGER_COUNT;
+//        }
+
+        return (options);
+    }
+
     public void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(message);
         alert.show();
 
@@ -145,7 +192,9 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
 
                             IBScanDevice ibScanDeviceNew = getIBScan().openDevice(this.deviceIndexTemp);
                             setIBScanDevice(ibScanDeviceNew);
-                            showAlert("IBScan.openDevice() successful");
+//                            showAlert("IBScan.openDevice() successful");
+                            System.out.println("Device opened");
+                            System.out.println(ibScanDeviceNew);
 
                         }
                         catch (IBScanException ibse)
@@ -185,6 +234,7 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
                     // "Device Index" field.
                     IBScan.DeviceDesc deviceDesc = getIBScan().getDeviceDescription(deviceIndex);
                     showAlert("IBScan.getDeviceDescription() successful");
+                    System.out.println(deviceDesc);
 
                 }
                 catch (IBScanException ibse)
@@ -203,11 +253,65 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
         Button btnIsDeviceOpen = new Button("Is Device Open");
         btnIsDeviceOpen.setOnAction(e -> {
 
+
+            System.out.println("IsDeviceOpened button pressed.");
+
+            if (getIBScanDevice() == null)
+            {
+                // Alert user no device has been opened.
+                showAlert("No device has been opened.");
+
+            }
+            else
+            {
+                // Test whether device is open.
+                boolean open = getIBScanDevice().isOpened();
+//                setFunctionResult("");
+                if (open)
+                    System.out.println("Device is open.");
+                else
+                    System.out.println("Device is not open.");
+            }
+
         });
 
 
         Button btnBeginCapture = new Button("Begin Image Capture");
         btnBeginCapture.setOnAction(e -> {
+
+            System.out.println("BeginCaptureImage button pressed; imageType = " + getImageType()
+                    + "; imageResolution = " + getImageResolution() + "; captureOptions = "
+                    + getCaptureOptions() + ".");
+
+            if (getIBScanDevice() == null)
+            {
+                // Alert user no device has been opened.
+                showAlert("No device has been opened.");
+//                setFunctionResult("");setFunctionResult
+//                setAdditionalInformation("");
+            }
+            else
+            {
+                // Begin capturing image for active device.
+                int captureOptions = getCaptureOptions();
+                IBScanDevice.ImageType imageType = getImageType();
+                IBScanDevice.ImageResolution imageResolution = getImageResolution();
+
+                try
+                {
+                    // Begin capturing image for active device.
+                    this.getIBScanDevice().beginCaptureImage(imageType,
+                            imageResolution,captureOptions);
+                    SwingUtilities.invokeLater(new ReportResultsRunnable(
+                            "IBScanDevice.beginCaptureImage() successful", ""));
+                }
+                catch (IBScanException ibse)
+                {
+                    SwingUtilities.invokeLater(new ReportResultsRunnable(
+                            "IBScanDevice.beginCaptureImage() returned exception "
+                                    + ibse.getType().toString() + ".", ""));
+                }
+            }
 
         });
 
@@ -220,6 +324,32 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
 
         Button btnCaptureImageManually = new Button("Capture Image Manually");
         btnCaptureImageManually.setOnAction(e -> {
+
+            System.out.println("TakeResultImageManually button pressed.");
+
+            if (getIBScanDevice() == null)
+            {
+                // Alert user no device has been opened.
+                System.out.println("No device has been opened.");
+//                setFunctionResult("");
+//                setAdditionalInformation("");
+            }
+            else
+            {
+                try
+                {
+                    // Capture image manually for active device
+                    getIBScanDevice().captureImageManually();
+                    System.out.println("IBScanDevice.takeResultImageManually() successful");
+//                    setAdditionalInformation("");
+                }
+                catch (IBScanException ibse)
+                {
+                    System.out.println("IBScanDevice.takeResultImageManually() returned exception "
+                            + ibse.getType().toString() + ".");
+//                    setAdditionalInformation("");
+                }
+            }
 
         });
 
@@ -239,8 +369,17 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
         pane2.setHgap(10);
         pane2.getChildren().addAll(getDeviceDescription, openButton, btnCloseDevice, btnIsDeviceOpen, btnBeginCapture, btnCancelCapture, btnCaptureImageManually);
 
+        Label preview = new Label("Image Preview");
+
+
+
         VBox vBox = new VBox(10);
-        vBox.getChildren().addAll(pane1,pane2);
+        vBox.getChildren().addAll(pane1,pane2, preview, imagePreview);
+
+
+
+        this.ibScan = IBScan.getInstance();
+        this.ibScan.setScanListener(this);
 
         primaryStage.setTitle("Testing Integrated Biometric Scanner");
         primaryStage.setScene(new Scene(vBox, 900, 275));
@@ -253,6 +392,17 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
     }
 
 
+    // //////////////////////////////////////////////////////////////////////////////////////////////
+    // PRIVATE INTERFACE
+    // //////////////////////////////////////////////////////////////////////////////////////////////
+
+    private static final int CLICK_TIME_MS = 5;//50;
+    private static final int IMAGE_WIDTH = 280;//279;
+    private static final int IMAGE_HEIGHT = 200;//201;
+
+    // //////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INTERFACE: IBScanListener METHODS
+    // //////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -262,7 +412,57 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
     }
 
     @Override
-    public void deviceImagePreviewAvailable(IBScanDevice ibScanDevice, ImageData imageData) throws IBScanException {
+    public void deviceImagePreviewAvailable(IBScanDevice ibScanDevice, ImageData image) throws IBScanException {
+        System.out.print("Callback \"scanPreviewImageAvailable\" received with (image = "
+                + image.width + "x" + image.height + " " + image.bitsPerPixel + "-bpp "
+                + image.format.toString() + " pitch=" + image.pitch + " res=" + image.resolutionX
+                + "x" + image.resolutionY + ")");
+
+
+
+        class DisplayImagePreviewRunnable implements Runnable
+        {
+            javafx.scene.image.Image imageIconTemp;
+
+            DisplayImagePreviewRunnable(javafx.scene.image.Image imageIconTemp)
+            {
+                this.imageIconTemp = imageIconTemp;
+            }
+
+            @Override
+            public void run()
+            {
+                // Set image in image preview and flash button.
+                imagePreview.setImage(this.imageIconTemp);
+//                FunctionTester.this.lblImagePreview.setIcon(this.imageIconTemp);
+//                lightCallbackButton(FunctionTester.this.btnDeviceImagePreviewAvailable, 5);
+            }
+        }
+
+
+
+        // UI updates must occur on UI thread.
+        int destWidth = IMAGE_WIDTH;
+        int destHeight = IMAGE_HEIGHT;
+        int outImageSize = destWidth * destHeight;
+
+        byte[] outImage = new byte[outImageSize];
+        Arrays.fill(outImage, (byte) 255);
+
+        try {
+            int nRc = ibScanDevice.generateZoomOutImageEx(image.buffer,
+                    image.width, image.height, outImage, destWidth, destHeight,
+                    (byte) 255);
+        } catch (IBScanException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//        Image imageJ = image.toImage(outImage, IMAGE_WIDTH, IMAGE_HEIGHT);
+//        ImageIcon imageIcon = new ImageIcon(imageJ);
+        javafx.scene.image.Image imageFX = SwingFXUtils.toFXImage(image.toImage(outImage, IMAGE_WIDTH, IMAGE_HEIGHT), null);
+        SwingUtilities.invokeLater(new DisplayImagePreviewRunnable(imageFX));
 
     }
 
@@ -288,12 +488,93 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
 
     @Override
     public void deviceImageResultAvailable(IBScanDevice ibScanDevice, ImageData imageData, ImageType imageType, ImageData[] imageData1) {
+        System.out.print("Callback \"imageResultAvailable\" received (image = " + imageData.width + "x"
+                + imageData.height + " " + imageData.bitsPerPixel + "-bpp " + imageData.format.toString()
+                + " pitch=" + imageData.pitch + " res=" + imageData.resolutionX + "x" + imageData.resolutionY
+                + ")");
+
+        System.out.println(imageData1);
 
     }
 
     @Override
-    public void deviceImageResultExtendedAvailable(IBScanDevice ibScanDevice, IBScanException e, ImageData imageData, ImageType imageType, int i, ImageData[] imageData1, SegmentPosition[] segmentPositions) {
+    public void deviceImageResultExtendedAvailable(IBScanDevice device, IBScanException imageStatus,
+                                                   ImageData image, ImageType imageType, int detectedFingerCount, ImageData[] segmentImageArray,
+                                                   SegmentPosition[] segmentPositionArray)
+    {
+        System.out.println("Callback \"imageResultExtendedAvailable\" received (image = " + image.width + "x"
+                + image.height + " " + image.bitsPerPixel + "-bpp " + image.format.toString()
+                + " pitch=" + image.pitch + " res=" + image.resolutionX + "x" + image.resolutionY
+                + ")");
 
+        BufferedImage saveImage = image.toSaveImage();
+        try {
+            ImageIO.write(saveImage, "jpg", new File("savedImaged.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("-------- ------ ------ ---------");
+        System.out.println(segmentImageArray.length);
+        System.out.println("-------- ------ ------ ---------");
+
+        for (ImageData imageData : segmentImageArray) {
+            try {
+                ImageIO.write(imageData.toSaveImage(), "jpg", new File(imageData + "Imaged.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        class DisplayImageResultExtendedRunnable implements Runnable
+        {
+            BufferedImage imageTemp;
+            ImageData     imageDataTemp;
+
+            DisplayImageResultExtendedRunnable(BufferedImage imageTemp, ImageData imageDataTemp)
+            {
+                this.imageTemp     = imageTemp;
+                this.imageDataTemp = imageDataTemp;
+            }
+
+            @Override
+            public void run()
+            {
+                // Set image in image preview, preserve image for saving, and
+                // flash button.
+//                lightCallbackButton(FunctionTester.this.btnDeviceImageResultExtendedAvailable, 50);
+                int destWidth = IMAGE_WIDTH;
+                int destHeight = IMAGE_HEIGHT;
+                int outImageSize = destWidth * destHeight;
+
+                byte[] outImage = new byte[outImageSize];
+                Arrays.fill(outImage, (byte) 255);
+
+                try {
+                    int nRc = ibScanDevice.generateZoomOutImageEx(
+                            imageDataTemp.buffer,
+                            imageDataTemp.width,
+                            imageDataTemp.height, outImage, destWidth,
+                            destHeight, (byte) 255);
+                } catch (IBScanException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+                // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                Image imageJ = imageDataTemp.toImage(outImage,
+                        IMAGE_WIDTH, IMAGE_HEIGHT);
+                ImageIcon imageIcon = new ImageIcon(imageJ);
+//                FunctionTester.this.lblImagePreview.setIcon(imageIcon);
+//                FunctionTester.this.lastScanImage = this.imageTemp;
+//                FunctionTester.this.lastScanImageData = this.imageDataTemp;
+            }
+        }
+
+        // UI updates must occur on UI thread.
+        BufferedImage imageJ = image.toImage();
+        SwingUtilities.invokeLater(new DisplayImageResultExtendedRunnable(imageJ, image));
     }
 
     @Override
@@ -325,4 +606,27 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
     public void scanDeviceOpenComplete(int i, IBScanDevice ibScanDevice, IBScanException e) {
 
     }
+
+    // Utility class to report results back to display thread.
+    private class ReportResultsRunnable implements Runnable
+    {
+        private String functionResult;
+        private String additionalInformation;
+
+        ReportResultsRunnable(String functionResult, String additionalInformation)
+        {
+            this.functionResult = functionResult;
+            this.additionalInformation = additionalInformation;
+        }
+
+        @Override
+        public void run()
+        {
+            System.out.println(this.functionResult);
+//            FunctionTester.this.setFunctionResult(this.functionResult);
+//            FunctionTester.this.setAdditionalInformation(this.additionalInformation);
+        }
+    }
 }
+
+
