@@ -1,5 +1,6 @@
 package sample;
 
+import com.integratedbiometrics.ibscancommon.IBCommon;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
@@ -507,6 +508,18 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
                 + " pitch=" + image.pitch + " res=" + image.resolutionX + "x" + image.resolutionY
                 + ")");
 
+        System.out.println("The total count of fingers is " + detectedFingerCount);
+
+        try {
+
+            System.out.println("-------- ----lol-- ------ ---------");
+            System.out.println(getIBScanDevice().getResultImageExt(IBCommon.FingerPosition.LEFT_THUMB));
+
+            System.out.println("-------- ------ ------ ---------");
+        } catch (IBScanException e) {
+            e.printStackTrace();
+        }
+
         BufferedImage saveImage = image.toSaveImage();
         try {
             ImageIO.write(saveImage, "jpg", new File("savedImaged.png"));
@@ -520,12 +533,27 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
 
         for (ImageData imageData : segmentImageArray) {
             try {
-                ImageIO.write(imageData.toSaveImage(), "jpg", new File(imageData + "Imaged.png"));
+//                ImageIO.write(imageData.toSaveImage(), "jpg", new File(imageData + "Imaged.png"));
+
+                saveLeftHand(detectedFingerCount, segmentImageArray, imageData);
+//                saveRightHand(detectedFingerCount, segmentImageArray, imageData);
+//                saveTwoHand(detectedFingerCount, segmentImageArray, imageData);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
+        System.out.println("-------- ------ ------ ---------");
+        System.out.println(segmentPositionArray.length);
+        System.out.println("-------- ------ ------ ---------");
+
+        for (SegmentPosition segmentPosition : segmentPositionArray) {
+            System.out.println(segmentPosition.x1 + "," + segmentPosition.y1);
+
+        }
+
+
 
         class DisplayImageResultExtendedRunnable implements Runnable
         {
@@ -575,6 +603,30 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
         // UI updates must occur on UI thread.
         BufferedImage imageJ = image.toImage();
         SwingUtilities.invokeLater(new DisplayImageResultExtendedRunnable(imageJ, image));
+    }
+
+    private void saveLeftHand(int detectedFingerCount, ImageData[] segmentImageArray, ImageData imageData) throws IOException {
+        if(segmentImageArray.length > detectedFingerCount - 1 && segmentImageArray[0] != null)
+        {
+            ImageIO.write(imageData.toSaveImage(), "jpg", new File("left-ring-" + "Imaged.png"));
+        }
+
+        if(segmentImageArray.length > detectedFingerCount - 1 && segmentImageArray[1] != null)
+        {
+            ImageIO.write(imageData.toSaveImage(), "jpg", new File("ring-pinky-" + "Imaged.png"));
+        }
+
+
+        if(segmentImageArray.length > detectedFingerCount - 1 && segmentImageArray[2] != null)
+        {
+            ImageIO.write(imageData.toSaveImage(), "jpg", new File("ring-middle-" + "Imaged.png"));
+        }
+
+
+        if(segmentImageArray.length > detectedFingerCount - 1 && segmentImageArray[3] != null)
+        {
+            ImageIO.write(imageData.toSaveImage(), "jpg", new File("ring-index-" + "Imaged.png"));
+        }
     }
 
     @Override
