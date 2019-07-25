@@ -248,6 +248,26 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
 
         Button btnCloseDevice = new Button("Close Device");
         btnCloseDevice.setOnAction(e -> {
+            showAlert("CloseDevice button pressed.");
+
+            if (getIBScanDevice() == null)
+            {
+                // Alert user no device has been opened.
+                showAlert("No device has been opened.");
+            }
+            else
+            {
+                try
+                {
+                    // Close open device.
+                    getIBScanDevice().close();
+                }
+                catch (IBScanException ibse)
+                {
+                    System.out.println("IBScan.closeDevice() returned exception "
+                            + ibse.getType().toString() + ".");
+                }
+            }
 
         });
 
@@ -319,6 +339,26 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
 
         Button btnCancelCapture = new Button("Cancel Image Capture");
         btnCancelCapture.setOnAction(e -> {
+            System.out.println("CancelCaptureImage button pressed.");
+
+            if (getIBScanDevice() == null)
+            {
+                // Alert user no device has been opened.
+                showAlert("No device has been opened.");
+            }
+            else
+            {
+                try
+                {
+                    // Cancel capturing image for active device.
+                    getIBScanDevice().cancelCaptureImage();
+                }
+                catch (IBScanException ibse)
+                {
+                    System.out.println("IBScanDevice.cancelCaptureImage() returned exception "
+                            + ibse.getType().toString() + ".");
+                }
+            }
 
         });
 
@@ -409,6 +449,18 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
 
     @Override
     public void deviceCommunicationBroken(IBScanDevice ibScanDevice) {
+        showAlert("Callback \"scanCommunicationBroken\" received");
+
+        // UI updates must occur on UI thread.
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                // Flash button.
+//                lightCallbackButton(FunctionTester.this.btnScanDeviceCommunicationBroken, 50);
+            }
+        });
 
     }
 
@@ -479,11 +531,25 @@ public class Main extends Application  implements IBScanListener, IBScanDeviceLi
 
     @Override
     public void deviceAcquisitionBegun(IBScanDevice ibScanDevice, ImageType imageType) {
+        showAlert("Callback \"acquisitionTaking\" received (imageType=" + imageType.toString()
+                + ")");
+
+        // UI updates must occur on UI thread.
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                // Flash button.
+//                lightCallbackButton(FunctionTester.this.btnDeviceAcquisitionBegun, 50);
+            }
+        });
 
     }
 
     @Override
     public void deviceAcquisitionCompleted(IBScanDevice ibScanDevice, ImageType imageType) {
+        showAlert("Callback \"deviceOpenComplete\" received");
 
     }
 

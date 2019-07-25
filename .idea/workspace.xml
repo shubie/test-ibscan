@@ -3,16 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@1d0b71adImaged.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@8f44f77Imaged.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@99a1a47Imaged.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@de78304Imaged.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main$1DisplayImagePreviewRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main$1DisplayImagePreviewRunnable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main$1DisplayImageResultExtendedRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main$1DisplayImageResultExtendedRunnable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main$1OpenDeviceThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main$1OpenDeviceThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main$ReportResultsRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main$ReportResultsRunnable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestBiometric/sample/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedImaged.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -76,11 +66,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="541" column="37" lean-forward="true" selection-start-line="541" selection-start-column="37" selection-end-line="541" selection-end-column="37" />
+            <state relative-caret-position="163">
+              <caret line="250" column="22" selection-start-line="250" selection-start-column="22" selection-end-line="250" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#getDeviceIndex#0;class#Main#0" />
+                <element signature="e#2591#2958#0" />
+                <element signature="e#8304#8940#0" />
+                <element signature="e#9049#10637#0" />
+                <element signature="e#10749#11751#0" />
+                <element signature="e#13640#15834#0" />
+                <element signature="e#16874#21406#0" />
+                <element signature="e#21639#21748#1" />
+                <element signature="e#21853#21963#1" />
               </folding>
             </state>
           </provider>
@@ -89,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Integrated Biometrics/IBScanUltimateSDK_x64/Lib/IBScanUltimate.jar!/com/integratedbiometrics/ibscanultimate/IBScanDevice.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="1595" column="36" lean-forward="true" selection-start-line="1595" selection-start-column="36" selection-end-line="1595" selection-end-column="36" />
+            <state relative-caret-position="20026">
+              <caret line="1227" column="25" selection-start-line="1227" selection-start-column="25" selection-end-line="1227" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -146,21 +143,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="TestBiometric" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TestBiometric" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -284,11 +267,14 @@
       <workItem from="1563205489909" duration="1262000" />
       <workItem from="1563272204641" duration="8711000" />
       <workItem from="1563288467028" duration="5271000" />
+      <workItem from="1563700930977" duration="372000" />
+      <workItem from="1563713740325" duration="546000" />
+      <workItem from="1564051033515" duration="1100000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58452000" />
+    <option name="totallyTimeSpent" value="60470000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="120" y="41" width="1612" height="980" extended-state="0" />
@@ -314,10 +300,10 @@
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32974428" />
+      <window_info active="true" anchor="bottom" id="Messages" order="13" visible="true" weight="0.3293979" />
       <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="15" />
-      <window_info anchor="bottom" id="Terminal" order="16" weight="0.32974428" />
+      <window_info anchor="bottom" id="Terminal" order="16" weight="0.3293979" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -412,12 +398,12 @@
     <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@1d0b71adImaged.png" />
     <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@8f44f77Imaged.png" />
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@508480deImaged.png" />
     <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@a33771bImaged.png" />
@@ -442,51 +428,44 @@
     <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@27abaae8Imaged.png" />
     <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@49b7dca9Imaged.png" />
     <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@52f1ff2Imaged.png" />
-    <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@5a36dc93Imaged.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@5799dab0Imaged.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@68659e9Imaged.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@4d7edd4eImaged.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/left-pinky-Imaged.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@5a36dc93Imaged.png" />
+    <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@5799dab0Imaged.png" />
+    <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@68659e9Imaged.png" />
+    <entry file="file://$PROJECT_DIR$/com.integratedbiometrics.ibscanultimate.IBScanDevice$ImageData@4d7edd4eImaged.png" />
+    <entry file="file://$PROJECT_DIR$/left-pinky-Imaged.png" />
     <entry file="file://$PROJECT_DIR$/savedImaged.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/ring-middle-Imaged.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ring-index-Imaged.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ring-middle-Imaged.png" />
+    <entry file="file://$PROJECT_DIR$/ring-index-Imaged.png" />
     <entry file="file://$PROJECT_DIR$/left-ring-Imaged.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/ring-pinky-Imaged.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="jar://C:/Program Files/Integrated Biometrics/IBScanUltimateSDK_x64/Lib/IBScanUltimate.jar!/com/integratedbiometrics/ibscanultimate/IBScanDevice.class">
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="1595" column="36" lean-forward="true" selection-start-line="1595" selection-start-column="36" selection-end-line="1595" selection-end-column="36" />
+        <state relative-caret-position="163">
+          <caret line="250" column="22" selection-start-line="250" selection-start-column="22" selection-end-line="250" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2591#2958#0" />
+            <element signature="e#8304#8940#0" />
+            <element signature="e#9049#10637#0" />
+            <element signature="e#10749#11751#0" />
+            <element signature="e#13640#15834#0" />
+            <element signature="e#16874#21406#0" />
+            <element signature="e#21639#21748#1" />
+            <element signature="e#21853#21963#1" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+    <entry file="jar://C:/Program Files/Integrated Biometrics/IBScanUltimateSDK_x64/Lib/IBScanUltimate.jar!/com/integratedbiometrics/ibscanultimate/IBScanDevice.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="541" column="37" lean-forward="true" selection-start-line="541" selection-start-column="37" selection-end-line="541" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getDeviceIndex#0;class#Main#0" />
-          </folding>
+        <state relative-caret-position="20026">
+          <caret line="1227" column="25" selection-start-line="1227" selection-start-column="25" selection-end-line="1227" selection-end-column="25" />
         </state>
       </provider>
     </entry>
